@@ -22,7 +22,11 @@ public class FileAndDirectoryPrinter {
         String parent = getParent();
         
         // Print a list of directories from parent to end. Initial indent is 0.
-        printDirectoryTree(parent, 0);
+        //printDirectoryTree(parent, 0);
+        
+        // Print a list of all files and directories from parent to end.
+        // Initial indent is 0.
+        printFileTree(parent, 0);
         
     }
     
@@ -73,5 +77,26 @@ public class FileAndDirectoryPrinter {
                 printDirectoryTree(afile.getPath(), indent+2);
             }
         }
+    }
+    
+    /**
+     * Prints a tree of all directories and files with appropriate indentation
+     * @param parent The directory to start printing from
+     * @param indent 
+     */
+    private static void printFileTree(String parent, int indent) {
+        File[] files = new File(parent).listFiles();
+ 
+        for (File file : files) {
+            
+            for (int i = 0; i < indent; i++) {
+                System.out.print(' ');
+            }
+            
+            System.out.println(file.getName());
+            if (file.isDirectory()) {
+                printFileTree(file.getPath(), indent+2);
+            }
+        }  
     }
 }
